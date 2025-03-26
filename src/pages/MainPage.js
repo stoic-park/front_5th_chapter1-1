@@ -95,7 +95,6 @@ const MainPage = () => {
           </div>
         </div>
       </main>
-
       ${Footer()}
     </div>
   </div>

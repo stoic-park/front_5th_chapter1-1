@@ -69,10 +69,12 @@ window.addEventListener("popstate", router);
 
 // 링크 클릭 처리
 document.addEventListener("click", (e) => {
-  if (e.target.matches("a")) {
+  const linkElement = e.target.closest("a, [role='link']");
+
+  if (linkElement) {
     e.preventDefault();
-    const href = e.target.getAttribute("href");
-    if (href !== "#") {
+    const href = linkElement.getAttribute("href");
+    if (href && href !== "#") {
       window.history.pushState({}, "", href);
       router();
     }

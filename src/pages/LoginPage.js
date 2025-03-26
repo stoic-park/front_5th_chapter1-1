@@ -1,10 +1,11 @@
 const LoginPage = () => `
+ <div id="root">
   <main class="bg-gray-100 flex items-center justify-center min-h-screen">
     <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
       <h1 class="text-2xl font-bold text-center text-blue-600 mb-8">항해플러스</h1>
       <form id="login-form">
         <div class="mb-4">
-          <input id="username" type="text" placeholder="이메일 또는 전화번호" class="w-full p-2 border rounded">
+          <input id="username" type="text" placeholder="사용자 이름" class="w-full p-2 border rounded">
         </div>
         <div class="mb-6">
           <input id="password" type="password" placeholder="비밀번호" class="w-full p-2 border rounded">
@@ -20,6 +21,7 @@ const LoginPage = () => `
       </div>
     </div>
   </main>
+ </div>
 `;
 
 export default LoginPage;
