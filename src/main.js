@@ -3,13 +3,13 @@ import LoginPage from "./pages/LoginPage.js";
 import ProfilePage from "./pages/ProfilePage.js";
 import ErrorPage from "./pages/ErrorPage.js";
 import { getUser, saveUser, logout, isLoggedIn } from "./utils/auth.js";
-
+import { BASE_PATH } from "./constants.js";
 // root element 참조
 const root = document.getElementById("root");
 
 // navigate 함수 수정
 const navigate = (path) => {
-  window.history.pushState({}, "", path);
+  window.history.pushState({}, "", BASE_PATH + path);
   router();
 };
 
@@ -41,15 +41,14 @@ const handleProfileUpdate = () => {
 
 // 라우터 수정
 const router = () => {
-  const basePath = "/front_5th_chapter1-1";
   // 현재 경로가 basePath로 시작하지 않으면 basePath를 앞에 추가
   const currentPath = window.location.pathname;
-  if (!currentPath.startsWith(basePath)) {
-    const fullPath = basePath + currentPath;
+  if (!currentPath.startsWith(BASE_PATH)) {
+    const fullPath = BASE_PATH + currentPath;
     window.history.replaceState({}, "", fullPath);
   }
 
-  const path = window.location.pathname.replace(basePath, "") || "/";
+  const path = window.location.pathname.replace(BASE_PATH, "") || "/";
 
   // 로그인하지 않은 상태에서 /profile 접근 시 로그인 페이지로 리다이렉션
   if (path === "/profile" && !isLoggedIn()) {
@@ -95,10 +94,8 @@ document.addEventListener("click", (e) => {
     e.preventDefault();
     const href = linkElement.getAttribute("href");
     if (href && href !== "#") {
-      // const basePath = "/front_5th_chapter1-1";
-      // const fullPath = basePath + href;
-      // window.history.pushState({}, "", fullPath);
-      window.history.pushState({}, "", href);
+      const fullPath = BASE_PATH + href;
+      window.history.pushState({}, "", fullPath);
       router();
     }
   }

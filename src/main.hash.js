@@ -3,13 +3,14 @@ import LoginPage from "./pages/LoginPage.js";
 import ProfilePage from "./pages/ProfilePage.js";
 import ErrorPage from "./pages/ErrorPage.js";
 import { getUser, saveUser, logout, isLoggedIn } from "./utils/auth.js";
-
+import { BASE_PATH } from "./constants.js";
 // root element 참조
 const root = document.getElementById("root");
 
 // navigate 함수 - 해시 기반 라우팅
 const navigate = (path) => {
-  window.location.hash = `${path}`;
+  const fullPath = BASE_PATH + path;
+  window.location.hash = `${fullPath}`;
   hashRouter();
 };
 
@@ -40,7 +41,7 @@ const handleProfileUpdate = () => {
 
 // 해시 기반 라우터 구현
 const hashRouter = () => {
-  const path = window.location.hash.slice(1) || "/";
+  const path = window.location.hash.slice(1) || BASE_PATH + "/";
 
   // 로그인된 상태에서 /login 접근 시 메인 페이지로 리다이렉션
   if (path === "/login" && isLoggedIn()) {
@@ -73,7 +74,7 @@ const hashRouter = () => {
 // 초기 라우팅
 window.addEventListener("load", () => {
   if (!window.location.hash) {
-    window.location.hash = "/";
+    window.location.hash = BASE_PATH + "/";
   } else {
     hashRouter();
   }
@@ -90,7 +91,7 @@ document.addEventListener("click", (e) => {
     e.preventDefault();
     const href = linkElement.getAttribute("href");
     if (href && href !== "#") {
-      window.location.hash = href;
+      window.location.hash = BASE_PATH + href;
       navigate(href);
     }
   }
