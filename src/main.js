@@ -7,7 +7,7 @@ import { getUser, saveUser, logout, isLoggedIn } from "./utils/auth.js";
 // root element 참조
 const root = document.getElementById("root");
 
-// navigate 함수 추가
+// navigate 함수 수정
 const navigate = (path) => {
   window.history.pushState({}, "", path);
   router();
@@ -16,6 +16,7 @@ const navigate = (path) => {
 const handleLogin = (e) => {
   e.preventDefault();
   const username = document.getElementById("username").value;
+
   saveUser({
     username: username,
     email: "",
@@ -38,9 +39,17 @@ const handleProfileUpdate = () => {
   navigate("/profile");
 };
 
-// 라우터 구현
+// 라우터 수정
 const router = () => {
-  const path = window.location.pathname;
+  const basePath = "/front_5th_chapter1-1";
+  // 현재 경로가 basePath로 시작하지 않으면 basePath를 앞에 추가
+  const currentPath = window.location.pathname;
+  if (!currentPath.startsWith(basePath)) {
+    const fullPath = basePath + currentPath;
+    window.history.replaceState({}, "", fullPath);
+  }
+
+  const path = window.location.pathname.replace(basePath, "") || "/";
 
   // 로그인하지 않은 상태에서 /profile 접근 시 로그인 페이지로 리다이렉션
   if (path === "/profile" && !isLoggedIn()) {
@@ -78,7 +87,9 @@ document.addEventListener("click", (e) => {
     e.preventDefault();
     const href = linkElement.getAttribute("href");
     if (href && href !== "#") {
-      window.history.pushState({}, "", href);
+      const basePath = "/front_5th_chapter1-1";
+      const fullPath = basePath + href;
+      window.history.pushState({}, "", fullPath);
       router();
     }
   }
