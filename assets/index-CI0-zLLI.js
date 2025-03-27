@@ -1,25 +1,25 @@
-(function(){const s=document.createElement("link").relList;if(s&&s.supports&&s.supports("modulepreload"))return;for(const e of document.querySelectorAll('link[rel="modulepreload"]'))a(e);new MutationObserver(e=>{for(const l of e)if(l.type==="childList")for(const d of l.addedNodes)d.tagName==="LINK"&&d.rel==="modulepreload"&&a(d)}).observe(document,{childList:!0,subtree:!0});function o(e){const l={};return e.integrity&&(l.integrity=e.integrity),e.referrerPolicy&&(l.referrerPolicy=e.referrerPolicy),e.crossOrigin==="use-credentials"?l.credentials="include":e.crossOrigin==="anonymous"?l.credentials="omit":l.credentials="same-origin",l}function a(e){if(e.ep)return;e.ep=!0;const l=o(e);fetch(e.href,l)}})();const c=t=>{localStorage.setItem("user",JSON.stringify(t))},u=()=>{const t=localStorage.getItem("user");return t?JSON.parse(t):null},f=()=>{localStorage.removeItem("user")},m=()=>localStorage.getItem("user")!==null,b=()=>`
+(function(){const e=document.createElement("link").relList;if(e&&e.supports&&e.supports("modulepreload"))return;for(const s of document.querySelectorAll('link[rel="modulepreload"]'))n(s);new MutationObserver(s=>{for(const l of s)if(l.type==="childList")for(const c of l.addedNodes)c.tagName==="LINK"&&c.rel==="modulepreload"&&n(c)}).observe(document,{childList:!0,subtree:!0});function o(s){const l={};return s.integrity&&(l.integrity=s.integrity),s.referrerPolicy&&(l.referrerPolicy=s.referrerPolicy),s.crossOrigin==="use-credentials"?l.credentials="include":s.crossOrigin==="anonymous"?l.credentials="omit":l.credentials="same-origin",l}function n(s){if(s.ep)return;s.ep=!0;const l=o(s);fetch(s.href,l)}})();const b=t=>{localStorage.setItem("user",JSON.stringify(t))},m=()=>{const t=localStorage.getItem("user");return t?JSON.parse(t):null},g=()=>{localStorage.removeItem("user")},u=()=>localStorage.getItem("user")!==null,p=()=>{const t=u(),e=window.location.pathname.replace("/front_5th_chapter1-1","")||"/";return`
     <header class="bg-blue-600 text-white p-4 sticky top-0">
       <h1 class="text-2xl font-bold">항해플러스</h1>
     </header>
 
-    <nav class="bg-white shadow-md p-2 sticky top-14" tagItem="tab">
+    <nav class="bg-white shadow-md p-2 sticky top-14">
       <ul class="flex justify-around">
-        <li><a href="/" role="link" class="text-blue-600" tagItem="nav">홈</a></li>
-        ${m()?`
-            <li><a href="/profile" role="link" class="text-gray-600" tagItem="nav">프로필</a></li>
-            <li><a href="#" id="logout" role="link" class="text-gray-600" tagItem="nav">로그아웃</a></li>
-            `:'<li><a href="/login" role="link" class="text-gray-600" tagItem="nav">로그인</a></li>'}
+        <li><a href="/" role="link" class="${e==="/"?"text-blue-600 font-bold":"text-gray-600"}">홈</a></li>
+        ${t?`
+            <li><a href="/profile" role="link" class="${e==="/profile"?"text-blue-600 font-bold":"text-gray-600"}">프로필</a></li>
+            <li><a href="#" id="logout" role="link" class="text-gray-600">로그아웃</a></li>
+            `:`<li><a href="/login" role="link" class="${e==="/login"?"text-blue-600 font-bold":"text-gray-600"}">로그인</a></li>`}
       </ul>
     </nav>
-  `,p=()=>`
+  `},f=()=>`
     <footer class="bg-gray-200 p-4 text-center">
       <p>&copy; 2024 항해플러스. All rights reserved.</p>
     </footer>
-  `,g=()=>`
+  `,v=()=>`
   <div class="bg-gray-100 min-h-screen flex justify-center">
     <div class="max-w-md w-full">
-      ${b()}
+      ${p()}
       <main class="p-4">
         <div class="mb-4 bg-white rounded-lg shadow p-4">
           <textarea class="w-full p-2 border rounded" placeholder="무슨 생각을 하고 계신가요?"></textarea>
@@ -109,10 +109,10 @@
           </div>
         </div>
       </main>
-      ${p()}
+      ${f()}
     </div>
   </div>
-`,v=()=>`
+`,h=()=>`
   <main class="bg-gray-100 flex items-center justify-center min-h-screen">
     <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
       <h1 class="text-2xl font-bold text-center text-blue-600 mb-8">항해플러스</h1>
@@ -134,11 +134,11 @@
       </div>
     </div>
   </main>
-`,h=()=>{const t=u();return`
+`,x=()=>{const t=m();return`
   <div id="root">
     <div class="bg-gray-100 min-h-screen flex justify-center">
       <div class="max-w-md w-full">
-        ${b()}
+        ${p()}
         <main class="p-4">
           <div class="bg-white p-8 rounded-lg shadow-md">
             <h2 class="text-2xl font-bold text-center text-blue-600 mb-8">
@@ -196,11 +196,11 @@
           </div>
         </main>
 
-        ${p()}
+        ${f()}
       </div>
     </div>
   </div>
-`},x=()=>`
+`},y=()=>`
   <main class="bg-gray-100 flex items-center justify-center min-h-screen">
     <div class="bg-white p-8 rounded-lg shadow-md w-full text-center" style="max-width: 480px">
       <h1 class="text-2xl font-bold text-blue-600 mb-4">항해플러스</h1>
@@ -214,4 +214,4 @@
       </a>
     </div>
   </main>
-`,n=document.getElementById("root"),r=t=>{window.history.pushState({},"",t),i()},y=t=>{t.preventDefault();const s=document.getElementById("username").value;c({username:s,email:"",bio:""}),r("/profile")},w=()=>{f(),r("/login")},I=()=>{const t=u(),s=document.getElementById("username").value,o=document.getElementById("email").value,a=document.getElementById("bio").value;c({...t,username:s,email:o,bio:a}),r("/profile")},i=()=>{const t="/front_5th_chapter1-1",s=window.location.pathname;if(!s.startsWith(t)){const a=t+s;window.history.replaceState({},"",a)}const o=window.location.pathname.replace(t,"")||"/";if(o==="/profile"&&!m()){r("/login");return}switch(o){case"/":n.innerHTML=g();break;case"/profile":n.innerHTML=h();break;case"/login":n.innerHTML=v();break;default:n.innerHTML=x();break}};i();window.addEventListener("popstate",i);document.addEventListener("click",t=>{const s=t.target.closest("a, [role='link']");if(s){t.preventDefault();const o=s.getAttribute("href");if(o&&o!=="#"){const e="/front_5th_chapter1-1"+o;window.history.pushState({},"",e),i()}}t.target.matches("#logout")&&(t.preventDefault(),w())});document.addEventListener("submit",t=>{t.target.matches("#login-form")&&(t.preventDefault(),y(t)),t.target.matches("#profile-form")&&(t.preventDefault(),I())});
+`,r="/front_5th_chapter1-1",i=document.getElementById("root"),a=t=>{window.history.pushState({},"",r+t),d()},w=t=>{t.preventDefault();const e=document.getElementById("username").value;b({username:e,email:"",bio:""}),a("/profile")},L=()=>{g(),a("/login")},P=()=>{const t=m(),e=document.getElementById("username").value,o=document.getElementById("email").value,n=document.getElementById("bio").value;b({...t,username:e,email:o,bio:n}),a("/profile")},d=()=>{const t=window.location.pathname;if(!t.startsWith(r)){const o=r+t;window.history.replaceState({},"",o)}const e=window.location.pathname.replace(r,"")||"/";if(e==="/profile"&&!u()){a("/login");return}if(e==="/login"&&u()){a("/");return}switch(e){case"/":i.innerHTML=v();break;case"/profile":i.innerHTML=x();break;case"/login":i.innerHTML=h();break;default:i.innerHTML=y();break}};window.addEventListener("load",()=>{d()});window.addEventListener("popstate",d);document.addEventListener("click",t=>{const e=t.target.closest("a, [role='link']");if(e){t.preventDefault();const o=e.getAttribute("href");if(o&&o!=="#"){const n=r+o;window.history.pushState({},"",n),d()}}t.target.matches("#logout")&&(t.preventDefault(),L())});document.addEventListener("submit",t=>{t.target.matches("#login-form")&&(t.preventDefault(),w(t)),t.target.matches("#profile-form")&&(t.preventDefault(),P())});
