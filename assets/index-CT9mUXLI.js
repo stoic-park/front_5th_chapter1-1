@@ -1,15 +1,15 @@
-(function(){const s=document.createElement("link").relList;if(s&&s.supports&&s.supports("modulepreload"))return;for(const e of document.querySelectorAll('link[rel="modulepreload"]'))a(e);new MutationObserver(e=>{for(const l of e)if(l.type==="childList")for(const d of l.addedNodes)d.tagName==="LINK"&&d.rel==="modulepreload"&&a(d)}).observe(document,{childList:!0,subtree:!0});function o(e){const l={};return e.integrity&&(l.integrity=e.integrity),e.referrerPolicy&&(l.referrerPolicy=e.referrerPolicy),e.crossOrigin==="use-credentials"?l.credentials="include":e.crossOrigin==="anonymous"?l.credentials="omit":l.credentials="same-origin",l}function a(e){if(e.ep)return;e.ep=!0;const l=o(e);fetch(e.href,l)}})();const c=t=>{localStorage.setItem("user",JSON.stringify(t))},u=()=>{const t=localStorage.getItem("user");return t?JSON.parse(t):null},f=()=>{localStorage.removeItem("user")},b=()=>localStorage.getItem("user")!==null,m=()=>`
+(function(){const s=document.createElement("link").relList;if(s&&s.supports&&s.supports("modulepreload"))return;for(const e of document.querySelectorAll('link[rel="modulepreload"]'))a(e);new MutationObserver(e=>{for(const l of e)if(l.type==="childList")for(const d of l.addedNodes)d.tagName==="LINK"&&d.rel==="modulepreload"&&a(d)}).observe(document,{childList:!0,subtree:!0});function o(e){const l={};return e.integrity&&(l.integrity=e.integrity),e.referrerPolicy&&(l.referrerPolicy=e.referrerPolicy),e.crossOrigin==="use-credentials"?l.credentials="include":e.crossOrigin==="anonymous"?l.credentials="omit":l.credentials="same-origin",l}function a(e){if(e.ep)return;e.ep=!0;const l=o(e);fetch(e.href,l)}})();const c=t=>{localStorage.setItem("user",JSON.stringify(t))},u=()=>{const t=localStorage.getItem("user");return t?JSON.parse(t):null},f=()=>{localStorage.removeItem("user")},m=()=>localStorage.getItem("user")!==null,b=()=>`
     <header class="bg-blue-600 text-white p-4 sticky top-0">
       <h1 class="text-2xl font-bold">항해플러스</h1>
     </header>
 
-    <nav class="bg-white shadow-md p-2 sticky top-14">
+    <nav class="bg-white shadow-md p-2 sticky top-14" tagItem="tab">
       <ul class="flex justify-around">
-        <li><a href="/" role="link" class="text-blue-600">홈</a></li>
-        ${b()?`
-            <li><a href="/profile" role="link" class="text-gray-600">프로필</a></li>
-            <li><a href="#" id="logout" role="link" class="text-gray-600">로그아웃</a></li>
-            `:'<li><a href="/login" role="link" class="text-gray-600">로그인</a></li>'}
+        <li><a href="/" role="link" class="text-blue-600" tagItem="nav">홈</a></li>
+        ${m()?`
+            <li><a href="/profile" role="link" class="text-gray-600" tagItem="nav">프로필</a></li>
+            <li><a href="#" id="logout" role="link" class="text-gray-600" tagItem="nav">로그아웃</a></li>
+            `:'<li><a href="/login" role="link" class="text-gray-600" tagItem="nav">로그인</a></li>'}
       </ul>
     </nav>
   `,p=()=>`
@@ -19,7 +19,7 @@
   `,g=()=>`
   <div class="bg-gray-100 min-h-screen flex justify-center">
     <div class="max-w-md w-full">
-      ${m()}
+      ${b()}
       <main class="p-4">
         <div class="mb-4 bg-white rounded-lg shadow p-4">
           <textarea class="w-full p-2 border rounded" placeholder="무슨 생각을 하고 계신가요?"></textarea>
@@ -112,7 +112,7 @@
       ${p()}
     </div>
   </div>
-`,h=()=>`
+`,v=()=>`
   <main class="bg-gray-100 flex items-center justify-center min-h-screen">
     <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
       <h1 class="text-2xl font-bold text-center text-blue-600 mb-8">항해플러스</h1>
@@ -134,11 +134,11 @@
       </div>
     </div>
   </main>
-`,v=()=>{const t=u();return`
+`,h=()=>{const t=u();return`
   <div id="root">
     <div class="bg-gray-100 min-h-screen flex justify-center">
       <div class="max-w-md w-full">
-        ${m()}
+        ${b()}
         <main class="p-4">
           <div class="bg-white p-8 rounded-lg shadow-md">
             <h2 class="text-2xl font-bold text-center text-blue-600 mb-8">
@@ -214,4 +214,4 @@
       </a>
     </div>
   </main>
-`,r=document.getElementById("root"),n=t=>{window.history.pushState({},"",t),i()},y=t=>{t.preventDefault();const s=document.getElementById("username").value;c({username:s,email:"",bio:""}),n("/profile")},w=()=>{f(),n("/login")},L=()=>{const t=u(),s=document.getElementById("username").value,o=document.getElementById("email").value,a=document.getElementById("bio").value;c({...t,username:s,email:o,bio:a}),n("/profile")},i=()=>{const t="/front_5th_chapter1-1",s=window.location.pathname;if(!s.startsWith(t)){const a=t+s;window.history.replaceState({},"",a)}const o=window.location.pathname.replace(t,"")||"/";if(o==="/profile"&&!b()){n("/login");return}switch(o){case"/":r.innerHTML=g();break;case"/profile":r.innerHTML=v();break;case"/login":r.innerHTML=h();break;default:r.innerHTML=x();break}};i();window.addEventListener("popstate",i);document.addEventListener("click",t=>{const s=t.target.closest("a, [role='link']");if(s){t.preventDefault();const o=s.getAttribute("href");if(o&&o!=="#"){const e="/front_5th_chapter1-1"+o;window.history.pushState({},"",e),i()}}t.target.matches("#logout")&&(t.preventDefault(),w())});document.addEventListener("submit",t=>{t.target.matches("#login-form")&&(t.preventDefault(),y(t)),t.target.matches("#profile-form")&&(t.preventDefault(),L())});
+`,n=document.getElementById("root"),r=t=>{window.history.pushState({},"",t),i()},y=t=>{t.preventDefault();const s=document.getElementById("username").value;c({username:s,email:"",bio:""}),r("/profile")},w=()=>{f(),r("/login")},I=()=>{const t=u(),s=document.getElementById("username").value,o=document.getElementById("email").value,a=document.getElementById("bio").value;c({...t,username:s,email:o,bio:a}),r("/profile")},i=()=>{const t="/front_5th_chapter1-1",s=window.location.pathname;if(!s.startsWith(t)){const a=t+s;window.history.replaceState({},"",a)}const o=window.location.pathname.replace(t,"")||"/";if(o==="/profile"&&!m()){r("/login");return}switch(o){case"/":n.innerHTML=g();break;case"/profile":n.innerHTML=h();break;case"/login":n.innerHTML=v();break;default:n.innerHTML=x();break}};i();window.addEventListener("popstate",i);document.addEventListener("click",t=>{const s=t.target.closest("a, [role='link']");if(s){t.preventDefault();const o=s.getAttribute("href");if(o&&o!=="#"){const e="/front_5th_chapter1-1"+o;window.history.pushState({},"",e),i()}}t.target.matches("#logout")&&(t.preventDefault(),w())});document.addEventListener("submit",t=>{t.target.matches("#login-form")&&(t.preventDefault(),y(t)),t.target.matches("#profile-form")&&(t.preventDefault(),I())});
