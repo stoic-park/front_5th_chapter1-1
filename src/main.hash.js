@@ -1,13 +1,16 @@
-import "./main.js";
 import MainPage from "./pages/MainPage.js";
 import LoginPage from "./pages/LoginPage.js";
 import ProfilePage from "./pages/ProfilePage.js";
 import ErrorPage from "./pages/ErrorPage.js";
 import { getUser, saveUser, logout, isLoggedIn } from "./utils/auth.js";
 
+// root element 참조
+const root = document.getElementById("root");
+
 // navigate 함수 - 해시 기반 라우팅
 const navigate = (path) => {
-  window.location.hash = path;
+  window.location.hash = `${path}`;
+  hashRouter();
 };
 
 const handleLogin = (e) => {
@@ -36,9 +39,14 @@ const handleProfileUpdate = () => {
 };
 
 // 해시 기반 라우터 구현
-const router = () => {
-  // 해시가 없는 경우 기본값 '/'로 설정
+const hashRouter = () => {
   const path = window.location.hash.slice(1) || "/";
+
+  // 로그인된 상태에서 /login 접근 시 메인 페이지로 리다이렉션
+  if (path === "/login" && isLoggedIn()) {
+    navigate("/");
+    return;
+  }
 
   // 로그인하지 않은 상태에서 /profile 접근 시 로그인 페이지로 리다이렉션
   if (path === "/profile" && !isLoggedIn()) {
@@ -48,25 +56,31 @@ const router = () => {
 
   switch (path) {
     case "/":
-      document.body.innerHTML = MainPage();
+      root.innerHTML = MainPage();
       break;
     case "/profile":
-      document.body.innerHTML = ProfilePage();
+      root.innerHTML = ProfilePage();
       break;
     case "/login":
-      document.body.innerHTML = LoginPage();
+      root.innerHTML = LoginPage();
       break;
     default:
-      document.body.innerHTML = ErrorPage();
+      root.innerHTML = ErrorPage();
       break;
   }
 };
 
 // 초기 라우팅
-router();
+window.addEventListener("load", () => {
+  if (!window.location.hash) {
+    window.location.hash = "/";
+  } else {
+    hashRouter();
+  }
+});
 
 // 해시 변경 이벤트 처리
-window.addEventListener("hashchange", router);
+window.addEventListener("hashchange", hashRouter);
 
 // 링크 클릭 처리
 document.addEventListener("click", (e) => {
@@ -76,6 +90,7 @@ document.addEventListener("click", (e) => {
     e.preventDefault();
     const href = linkElement.getAttribute("href");
     if (href && href !== "#") {
+      window.location.hash = href;
       navigate(href);
     }
   }

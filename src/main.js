@@ -56,6 +56,11 @@ const router = () => {
     navigate("/login");
     return;
   }
+  // 로그인된 상태에서 /login 접근 시 메인 페이지로 리다이렉션
+  if (path === "/login" && isLoggedIn()) {
+    navigate("/");
+    return;
+  }
 
   switch (path) {
     case "/":
@@ -74,7 +79,10 @@ const router = () => {
 };
 
 // 초기 라우팅
-router();
+// router();
+window.addEventListener("load", () => {
+  router();
+});
 
 // 브라우저 뒤로가기/앞으로가기 처리
 window.addEventListener("popstate", router);
@@ -87,9 +95,10 @@ document.addEventListener("click", (e) => {
     e.preventDefault();
     const href = linkElement.getAttribute("href");
     if (href && href !== "#") {
-      const basePath = "/front_5th_chapter1-1";
-      const fullPath = basePath + href;
-      window.history.pushState({}, "", fullPath);
+      // const basePath = "/front_5th_chapter1-1";
+      // const fullPath = basePath + href;
+      // window.history.pushState({}, "", fullPath);
+      window.history.pushState({}, "", href);
       router();
     }
   }
