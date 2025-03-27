@@ -4,6 +4,9 @@ import ProfilePage from "./pages/ProfilePage.js";
 import ErrorPage from "./pages/ErrorPage.js";
 import { getUser, saveUser, logout, isLoggedIn } from "./utils/auth.js";
 
+// root element 참조
+const root = document.getElementById("root");
+
 // navigate 함수 추가
 const navigate = (path) => {
   window.history.pushState({}, "", path);
@@ -47,16 +50,16 @@ const router = () => {
 
   switch (path) {
     case "/":
-      document.body.innerHTML = MainPage();
+      root.innerHTML = MainPage();
       break;
     case "/profile":
-      document.body.innerHTML = ProfilePage();
+      root.innerHTML = ProfilePage();
       break;
     case "/login":
-      document.body.innerHTML = LoginPage();
+      root.innerHTML = LoginPage();
       break;
     default:
-      document.body.innerHTML = ErrorPage();
+      root.innerHTML = ErrorPage();
       break;
   }
 };
